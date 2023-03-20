@@ -3,6 +3,7 @@ package com.ChinaMarket.Chinamarket.Model;
 import com.ChinaMarket.Chinamarket.Enum.ProductCategory;
 import com.ChinaMarket.Chinamarket.Enum.ProductStatus;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name="product")
 public class Product {
 
