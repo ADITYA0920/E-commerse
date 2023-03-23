@@ -1,6 +1,7 @@
 package com.ChinaMarket.Chinamarket.Model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.catalina.util.CustomObjectInputStream;
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name="ordered")
 public class Ordered {
 
