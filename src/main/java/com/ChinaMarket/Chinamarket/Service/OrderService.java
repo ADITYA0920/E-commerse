@@ -5,23 +5,29 @@ import com.ChinaMarket.Chinamarket.Exception.CustomerNotFoundException;
 import com.ChinaMarket.Chinamarket.Exception.ProductNotFoundException;
 import com.ChinaMarket.Chinamarket.Model.*;
 import com.ChinaMarket.Chinamarket.Repository.CustomerRepository;
+import com.ChinaMarket.Chinamarket.Repository.ItemRepository;
 import com.ChinaMarket.Chinamarket.Repository.OrderedRepository;
 import com.ChinaMarket.Chinamarket.Repository.ProductRepository;
 import com.ChinaMarket.Chinamarket.RequestDTO.OrderRequestDto;
 import com.ChinaMarket.Chinamarket.ResponseDTO.ItemResponseDto;
 import com.ChinaMarket.Chinamarket.ResponseDTO.OrderResponseDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class OrderService {
 
     @Autowired
     CustomerRepository customerRepository;
     @Autowired
     ProductRepository productRepository;
+
     @Autowired
-    private OrderedRepository orderedRepository;
+    JavaMailSender emailSender;
 
     public OrderResponseDto placeOrder(OrderRequestDto orderRequestDto) throws Exception {
         Customer customer;
@@ -44,67 +50,52 @@ public class OrderService {
             throw new Exception("Sorry! Required quantity not available");
         }
 
-        // Prepare Order
-        int totalCost = orderRequestDto.getRequiredQuantity()*product.getPrice();
-        int deliveryCharge = 0;
-        if(totalCost<500){
-            deliveryCharge = 50;
-            totalCost += deliveryCharge;
-        }
-        Ordered order = Ordered.builder()
-                .totalCost(totalCost)
-                .deliveryCharge(deliveryCharge)
-                .build();
-
-        // prepare the Card String;
+        Ordered order = new Ordered();
+        order.setTotalCost(orderRequestDto.getRequiredQuantity()* product.getPrice());
+        order.setDeliveryCharge(40);
         Card card = customer.getCards().get(0);
-        String cardUsed = "";
-        int cardNo = card.getCardNo().length();
-        for(int i = 0;i<cardNo-4;i++){
-            cardUsed += 'X';
-        }
-        cardUsed += card.getCardNo().substring(cardNo-4);
-        order.setCardUsedForPayment(cardUsed);
+        String cardNo = "";
+        for(int i=0;i<card.getCardNo().length()-4;i++)
+            cardNo += 'X';
+        cardNo += card.getCardNo().substring(card.getCardNo().length()-4);
+        order.setCardUsedForPayment(cardNo);
 
-        // update customer's current order list
-        customer.getOrders().add(order);
-        order.setCustomer(customer);
+        Item item = new Item();
+        item.setRequiredQuantity(orderRequestDto.getRequiredQuantity());
+        item.setProduct(product);
+        item.setOrder(order);
         order.getOrderedItems().add(item);
+        order.setCustomer(customer);
 
-        Customer savedCustomer = customerRepository.save(customer);
-        Ordered savedOrder = savedCustomer.getOrders().get(savedCustomer.getOrders().size()-1);
-
-        // update the quantity of product left in warehouse
-        int leftQuantity = product.getQuantity()- orderRequestDto.getRequiredQuantity();
+        int leftQuantity = product.getQuantity()-orderRequestDto.getRequiredQuantity();
         if(leftQuantity<=0)
             product.setProductStatus(ProductStatus.OUT_OF_STOCK);
         product.setQuantity(leftQuantity);
 
-        // update item
-        Item item = Item.builder()
-                .requiredQuantity(orderRequestDto.getRequiredQuantity())
-                .build();
-
-        // update item in orde
-
-        item.setOrder(order);
-        product.setItem(item);
-        item.setProduct(product);
-
-        // save product-item and customer-order
-        customerRepository.save(customer);
-
+        customer.getOrders().add(order);
+        Customer savedCustomer = customerRepository.save(customer);
+        Ordered savedOrder = savedCustomer.getOrders().get(savedCustomer.getOrders().size()-1);
 
         //prepare response DTO
         OrderResponseDto orderResponseDto = OrderResponseDto.builder()
                 .productName(product.getProductName())
-                .orderDate(order.getOrderDate())
+                .orderDate(savedOrder.getOrderDate())
                 .quantityOrdered(orderRequestDto.getRequiredQuantity())
-                .cardUsedForPayment(cardUsed)
+                .cardUsedForPayment(cardNo)
                 .itemPrice(product.getPrice())
                 .totalCost(order.getTotalCost())
-                .deliveryCharge(deliveryCharge)
+                .deliveryCharge(40)
                 .build();
+
+        // send an email
+        String text = "Congrats your order with total value "+order.getTotalCost()+" has been placed";
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("backendavengers@gmail.com");
+        message.setTo(customer.getEmail());
+        message.setSubject("Order Placed Notification");
+        message.setText(text);
+        emailSender.send(message);
 
         return orderResponseDto;
     }
