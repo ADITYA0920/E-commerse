@@ -1,6 +1,6 @@
 package com.ChinaMarket.Chinamarket.Service;
 
-import com.ChinaMarket.Chinamarket.Enum.ProductCategory;
+import com.ChinaMarket.Chinamarket.Exception.Enum.ProductCategory;
 import com.ChinaMarket.Chinamarket.Exception.SellerNotFoundException;
 import com.ChinaMarket.Chinamarket.Model.Product;
 import com.ChinaMarket.Chinamarket.Model.Seller;

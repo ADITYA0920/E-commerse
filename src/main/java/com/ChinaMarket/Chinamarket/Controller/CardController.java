@@ -32,8 +32,4 @@ public class CardController {
 
         return new ResponseEntity(cardResponseDto,HttpStatus.ACCEPTED);
     }
-
-    // remove card
-
-    // remove all cards for a particular customer id
 }

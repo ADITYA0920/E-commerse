@@ -1,15 +1,12 @@
 package com.ChinaMarket.Chinamarket.Service;
 
-import com.ChinaMarket.Chinamarket.Enum.ProductStatus;
+import com.ChinaMarket.Chinamarket.Exception.Enum.ProductStatus;
 import com.ChinaMarket.Chinamarket.Exception.CustomerNotFoundException;
 import com.ChinaMarket.Chinamarket.Exception.ProductNotFoundException;
 import com.ChinaMarket.Chinamarket.Model.*;
 import com.ChinaMarket.Chinamarket.Repository.CustomerRepository;
-import com.ChinaMarket.Chinamarket.Repository.ItemRepository;
-import com.ChinaMarket.Chinamarket.Repository.OrderedRepository;
 import com.ChinaMarket.Chinamarket.Repository.ProductRepository;
 import com.ChinaMarket.Chinamarket.RequestDTO.OrderRequestDto;
-import com.ChinaMarket.Chinamarket.ResponseDTO.ItemResponseDto;
 import com.ChinaMarket.Chinamarket.ResponseDTO.OrderResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +23,8 @@ public class OrderService {
     @Autowired
     ProductRepository productRepository;
 
-    @Autowired
-    JavaMailSender emailSender;
+//    @Autowired
+//    JavaMailSender emailSender;
 
     public OrderResponseDto placeOrder(OrderRequestDto orderRequestDto) throws Exception {
         Customer customer;
@@ -88,14 +85,14 @@ public class OrderService {
                 .build();
 
         // send an email
-        String text = "Congrats your order with total value "+order.getTotalCost()+" has been placed";
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("backendavengers@gmail.com");
-        message.setTo(customer.getEmail());
-        message.setSubject("Order Placed Notification");
-        message.setText(text);
-        emailSender.send(message);
+//        String text = "Congrats your order with total value "+order.getTotalCost()+" has been placed";
+//
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom("backendavengers@gmail.com");
+//        message.setTo(customer.getEmail());
+//        message.setSubject("Order Placed Notification");
+//        message.setText(text);
+//        emailSender.send(message);
 
         return orderResponseDto;
     }

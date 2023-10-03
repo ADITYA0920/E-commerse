@@ -1,6 +1,6 @@
 package com.ChinaMarket.Chinamarket.ResponseDTO;
 
-import com.ChinaMarket.Chinamarket.Enum.CardType;
+import com.ChinaMarket.Chinamarket.Exception.Enum.CardType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

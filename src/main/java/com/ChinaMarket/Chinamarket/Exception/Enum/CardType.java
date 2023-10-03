@@ -1,4 +1,4 @@
-package com.ChinaMarket.Chinamarket.Enum;
+package com.ChinaMarket.Chinamarket.Exception.Enum;
 
 public enum CardType {
 

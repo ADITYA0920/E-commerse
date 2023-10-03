@@ -1,6 +1,6 @@
 package com.ChinaMarket.Chinamarket.convertor;
 
-import com.ChinaMarket.Chinamarket.Enum.ProductStatus;
+import com.ChinaMarket.Chinamarket.Exception.Enum.ProductStatus;
 import com.ChinaMarket.Chinamarket.Model.Product;
 import com.ChinaMarket.Chinamarket.RequestDTO.ProductRequestDto;
 import com.ChinaMarket.Chinamarket.ResponseDTO.ProductResponseDto;

@@ -1,6 +1,6 @@
 package com.ChinaMarket.Chinamarket.Service;
 
-import com.ChinaMarket.Chinamarket.Enum.ProductStatus;
+import com.ChinaMarket.Chinamarket.Exception.Enum.ProductStatus;
 import com.ChinaMarket.Chinamarket.Exception.CustomerNotFoundException;
 import com.ChinaMarket.Chinamarket.Exception.ProductNotFoundException;
 import com.ChinaMarket.Chinamarket.Model.*;
@@ -24,8 +24,8 @@ public class CartService {
     @Autowired
     ProductRepository productRepository;
 
-    @Autowired
-    JavaMailSender emailSender;
+//    @Autowired
+//    JavaMailSender emailSender;
 
     @Autowired
     OrderService orderService;
@@ -80,7 +80,9 @@ public class CartService {
         }
 
         List<OrderResponseDto> orderResponseDtos = new ArrayList<>();
+
         int totalCost = customer.getCart().getCartTotal();
+
         Cart cart = customer.getCart();
         for(Item item: cart.getItems()){
             Ordered order = new Ordered();
@@ -122,13 +124,13 @@ public class CartService {
         customerRepository.save(customer);
 
         String text = "Congrats your order with total value "+totalCost+" has been placed";
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("backendavengers@gmail.com");
-        message.setTo(customer.getEmail());
-        message.setSubject("Order Placed from China Market");
-        message.setText(text);
-        emailSender.send(message);
+//
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom("backendavengers@gmail.com");
+//        message.setTo(customer.getEmail());
+//        message.setSubject("Order Placed from China Market");
+//        message.setText(text);
+//        emailSender.send(message);
 
         return orderResponseDtos;
     }

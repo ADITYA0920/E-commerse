@@ -21,9 +21,10 @@ public class CustomerService {
         // allocate a cart to customer
         Cart cart = new Cart();
         cart.setCartTotal(0);
-        cart.setCustomer(customer);
 
+        // if we have oneTo one relation then we should set from both end
         // set cart in customer
+        cart.setCustomer(customer);
         customer.setCart(cart);
 
         customerRepository.save(customer);

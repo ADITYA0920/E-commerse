@@ -20,13 +20,5 @@ public class CustomerController {
         return customerService.addCustomer(customerRequestDto);
     }
 
-    // get customer by id
 
-    // view all customers
-
-    // delete customer by id
-
-    // get a customer by email
-
-    // update customer
 }

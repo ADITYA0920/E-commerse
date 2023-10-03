@@ -1,7 +1,7 @@
 package com.ChinaMarket.Chinamarket.ResponseDTO;
 
-import com.ChinaMarket.Chinamarket.Enum.ProductCategory;
-import com.ChinaMarket.Chinamarket.Enum.ProductStatus;
+import com.ChinaMarket.Chinamarket.Exception.Enum.ProductCategory;
+import com.ChinaMarket.Chinamarket.Exception.Enum.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

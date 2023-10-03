@@ -1,7 +1,6 @@
 package com.ChinaMarket.Chinamarket.Controller;
 
-import com.ChinaMarket.Chinamarket.Enum.ProductCategory;
-import com.ChinaMarket.Chinamarket.Exception.SellerNotFoundException;
+import com.ChinaMarket.Chinamarket.Exception.Enum.ProductCategory;
 import com.ChinaMarket.Chinamarket.RequestDTO.ProductRequestDto;
 import com.ChinaMarket.Chinamarket.ResponseDTO.ProductResponseDto;
 import com.ChinaMarket.Chinamarket.Service.ProductService;

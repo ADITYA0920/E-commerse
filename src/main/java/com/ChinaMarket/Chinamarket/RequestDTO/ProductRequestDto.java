@@ -1,13 +1,10 @@
 package com.ChinaMarket.Chinamarket.RequestDTO;
 
-import com.ChinaMarket.Chinamarket.Enum.ProductCategory;
+import com.ChinaMarket.Chinamarket.Exception.Enum.ProductCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 @Data
 @AllArgsConstructor
