@@ -18,4 +18,5 @@ A Basic Selling and Buying  Product service which allows people to sell and buy 
 ![img2darkmode](https://github.com/ADITYA0920/E-commerse/assets/112119500/dc6f8654-99a0-4098-80b0-3796a7ea0c5a)
 ## MVC
 ![MVC structure](https://github.com/ADITYA0920/E-commerse/assets/112119500/2237ceae-5795-4547-a863-71927f269540)
-
+## DUMMY SWAGGER PAGE
+![swagger_ui](https://github.com/ADITYA0920/E-commerse/assets/112119500/14bd307d-18d8-4202-aae3-b49b83932a16)
